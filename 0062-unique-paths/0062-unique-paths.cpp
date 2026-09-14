@@ -1,22 +1,22 @@
-// DP 
-// ism e ak 2D vector banaya jisme hr ak index k ly ak hi bar m note kr liya k wah ase kitne path j rhe h to recursive call m bar bar usi iindex k liy calculate nhi krna 
+// TABULATION METHOD 
+// isme i, j indx se jane wale path = path at uper box+path at previous box 
 
 class Solution {
 public:
-    int helper(int ro, int clm, int endr, int endclm, vector<vector<int>>& dp) {
-        if (ro == endr && clm == endclm)// agr last indx tk pahuch gye means path ban gya 
-            return 1;
-        if (ro > endr || clm > endclm) // agr sheet se bahar h gye to no path 
-            return 0;
-        if (dp[ro][clm] != -1)
-            return dp[ro][clm];// agr pahle hi check kr chuke h to dobara check krne ki jrurat nhi h 
-        dp[ro][clm] = (helper(ro + 1, clm, endr, endclm,dp) + helper(ro, clm + 1, endr, endclm,dp));
-        // agr ro,clm indx k liy path check nhi kia h to check kro aur use return kro 
-        return dp[ro][clm];
-    }
     int uniquePaths(int m, int n) {
-        if(m==1&& n==1) return 1;
-        vector<vector<int>> dp(m, vector<int>(n, -1));
-        return helper(0, 1, m - 1, n - 1, dp) + helper(1, 0, m - 1, n - 1, dp);
+        int dp[m][n];
+        dp[0][0]=1;
+        for(int i=0;i<m;i++){
+            for(int j=0; j<n;j++){
+                if(i!=0&& j!=0){
+                    dp[i][j]= dp[i-1][j]+dp[i][j-1]; // ak row uper same colum and same row ak previous colum
+                }else if(i==0 && j!=0){
+                    dp[i][j]= dp[i][j-1]; // previous culum
+                }else if(j==0&& i!=0){
+                    dp[i][j]= dp[i-1][j]; // previous row
+                }
+            }
+        }
+        return dp[m-1][n-1];
     }
 };
