@@ -1,19 +1,17 @@
-// DP use inspite of recursion 
+// tabulation method 
+// isme last house se check kia rob kia y nhi 
+// nums[i] ko rob krne y n krne pr jo max hoga wahi 
+// DP lecture 2 first or second question 
 
 class Solution {
 public:
-    int helper(vector<int>& nums, int idx, vector<int>& dp) {
-        if (idx == nums.size() - 1)
-            return nums[idx];
-        if (idx == nums.size() - 2)
-            return max(nums[idx], nums[idx + 1]);
-        if (dp[idx] != -1)
-            return dp[idx];
-        dp[idx] = max(nums[idx] + helper(nums, idx + 2, dp),helper(nums, idx + 1, dp));
-        return dp[idx];
-    }
     int rob(vector<int>& nums) {
-        vector<int> dp(105, -1);
-        return helper(nums, 0, dp);
+        if(nums.size()==1) return nums[0];
+        int n= nums.size();
+        nums[n-2]= max(nums[n-2],nums[n-1]);
+        for(int i=n-3; i>=0;i--){
+            nums[i]= max(nums[i]+nums[i+2],nums[i+1]);
+        }
+        return nums[0];
     }
 };
