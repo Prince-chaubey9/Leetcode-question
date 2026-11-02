@@ -1,3 +1,5 @@
+// solve by graph 
+// rooms[i] is ith room and it store, isase  kis kis room ja sakte h 
 class Solution {
 public:
     unordered_set<int> st;
